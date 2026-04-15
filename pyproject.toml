@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "economic-prophet"
+version = "0.1.0"
+description = "Open auditable economic profit framework reference implementation"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{name = "Economic Prophet Authors"}]
+dependencies = []
+
+[project.scripts]
+economic-prophet = "open_ep_framework.cli:main"
