@@ -1,0 +1,51 @@
+{
+  "run_id": "synthetic-relationship-001",
+  "timestamp": "2026-04-14T15:57:37Z",
+  "framework_version": "0.1.0",
+  "scenario": "base",
+  "parameter_version": "0.1.0",
+  "input_hash": "34221e01dd55590a3c0ce51fdc84c62ae5cdd11650bc508e349110b302376156",
+  "output_hash": "65d0b5164d636af46294e445d7f83ab5b79b6df5528d88b39446bce9b4f6c174",
+  "inputs": {
+    "balance": 10000000.0,
+    "fee_income": 12500.0,
+    "expense": 18000.0,
+    "tax_rate": 0.24,
+    "ftp_stack": {
+      "matched_maturity_base_bps": 280.0,
+      "term_premium_bps": 35.0,
+      "liquidity_premium_bps": 22.0,
+      "optionality_charge_bps": 18.0,
+      "contingent_draw_charge_bps": 12.0,
+      "stress_surcharge_bps": 20.0,
+      "stable_funding_credit_bps": 10.0,
+      "franchise_credit_bps": 5.0
+    },
+    "expected_loss": {
+      "pd": 0.012,
+      "lgd": 0.45,
+      "ead": 10000000.0
+    },
+    "recovery_surface": {
+      "seniority": 0.7,
+      "collateral_quality": 0.6,
+      "jurisdiction_score": 0.8,
+      "macro_regime": "base",
+      "liquidity_regime": "normal",
+      "workout_horizon_days": 540,
+      "market_state_price": 0.4
+    },
+    "capital_stack": {
+      "total": 650000.0,
+      "credit": 420000.0,
+      "market": 90000.0,
+      "operational": 80000.0,
+      "business": 60000.0
+    },
+    "hurdle_rate": 0.12
+  },
+  "outputs": {
+    "minimum_required_rate": 0.031016,
+    "economic_profit": -0.00003
+  }
+}
