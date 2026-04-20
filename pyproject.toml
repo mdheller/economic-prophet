@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "open-ep-framework"
+version = "0.1.0"
+description = "Open auditable economic profit framework reference implementation"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{name = "Open Auditable Economic Profit Framework Authors"}]
+dependencies = []
+
+[project.scripts]
+oepf = "open_ep_framework.cli:main"
