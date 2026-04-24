@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://economic-prophet.dev/schemas/ep_output.schema.json",
+  "title": "Economic Profit Output",
+  "type": "object",
+  "required": ["object_id", "as_of", "horizon", "economic_profit", "components"],
+  "properties": {
+    "object_id": {"type": "string"},
+    "as_of": {"type": "string"},
+    "horizon": {"type": "string"},
+    "economic_profit": {"type": "number"},
+    "components": {
+      "type": "object",
+      "required": ["revenue", "expected_loss", "expense", "funding_costs", "funding_credits", "taxes", "capital_charge"],
+      "properties": {
+        "revenue": {"type": "number"},
+        "expected_loss": {"type": "number"},
+        "expense": {"type": "number"},
+        "funding_costs": {"type": "number"},
+        "funding_credits": {"type": "number"},
+        "taxes": {"type": "number"},
+        "capital_charge": {"type": "number"}
+      }
+    }
+  }
+}
