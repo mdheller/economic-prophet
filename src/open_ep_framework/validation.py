@@ -32,6 +32,17 @@ def validate_instance(instance, schema, path="$"):
         for key, sub_schema in props.items():
             if key in instance:
                 validate_instance(instance[key], sub_schema, f"{path}.{key}")
+
+    if isinstance(instance, list):
+        item_schema = schema.get("items")
+        if item_schema:
+            for idx, item in enumerate(instance):
+                validate_instance(item, item_schema, f"{path}[{idx}]")
+        if "minItems" in schema and len(instance) < schema["minItems"]:
+            raise ValidationError(f"{path} below minItems")
+        if "maxItems" in schema and len(instance) > schema["maxItems"]:
+            raise ValidationError(f"{path} above maxItems")
+
     if isinstance(instance, (int, float)):
         if "minimum" in schema and instance < schema["minimum"]:
             raise ValidationError(f"{path} below minimum")
