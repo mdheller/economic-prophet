@@ -27,6 +27,7 @@ This repository layers the work from the economic-profit white paper into:
 - recovery surface engine
 - capital charge engine
 - attribution engine
+- relationship portfolio effects
 - audit pack generation
 
 ## Quick start
@@ -46,6 +47,17 @@ The CLI emits:
 - capital charge
 - zero-EP break-even rate
 - audit pack
+
+## Relationship portfolio effects
+
+The relationship engine demonstrates why relationship profitability is not a blind sum of transactions. It decomposes relationship required rate into:
+- weighted instrument break-even rate
+- capital diversification credit
+- collateral overlap charge
+- utilization interaction charge
+- franchise / cross-sell credit
+
+See `examples/synthetic_relationship.json` and `tests/test_relationship.py`.
 
 ## Ecosystem integration
 
