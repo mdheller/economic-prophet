@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Relationship Portfolio Input",
+  "type": "object",
+  "required": ["relationship_id", "effects", "items"],
+  "properties": {
+    "relationship_id": {"type": "string"},
+    "effects": {
+      "type": "object",
+      "required": ["capital_diversification_factor", "collateral_overlap_factor", "utilization_interaction_bps", "franchise_credit_bps", "capital_hurdle_rate"],
+      "properties": {
+        "capital_diversification_factor": {"type": "number", "minimum": 0, "maximum": 1},
+        "collateral_overlap_factor": {"type": "number", "minimum": 0, "maximum": 1},
+        "utilization_interaction_bps": {"type": "number"},
+        "franchise_credit_bps": {"type": "number"},
+        "capital_hurdle_rate": {"type": "number", "minimum": 0}
+      }
+    },
+    "items": {"type": "array", "minItems": 1}
+  }
+}
