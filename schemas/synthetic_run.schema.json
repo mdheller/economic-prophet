@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://economic-prophet.dev/schemas/synthetic_run.schema.json",
+  "title": "Synthetic Runtime Input",
+  "type": "object",
+  "required": ["run_id", "scenario", "balance", "fee_income", "expense", "tax_rate", "horizon_years", "hurdle_rate", "ftp_stack", "expected_loss", "recovery_surface", "capital_stack"],
+  "properties": {
+    "run_id": {"type": "string"},
+    "scenario": {"type": "string"},
+    "balance": {"type": "number", "minimum": 0},
+    "fee_income": {"type": "number"},
+    "expense": {"type": "number", "minimum": 0},
+    "tax_rate": {"type": "number", "minimum": 0, "maximum": 1},
+    "funding_credits": {"type": "number"},
+    "horizon_years": {"type": "number", "exclusiveMinimum": 0},
+    "hurdle_rate": {"type": "number", "minimum": 0},
+    "ftp_stack": {
+      "type": "object",
+      "required": ["matched_maturity_base_bps", "term_premium_bps", "liquidity_premium_bps", "optionality_charge_bps", "contingent_draw_charge_bps", "stress_surcharge_bps", "stable_funding_credit_bps", "franchise_credit_bps"],
+      "properties": {
+        "matched_maturity_base_bps": {"type": "number"},
+        "term_premium_bps": {"type": "number"},
+        "liquidity_premium_bps": {"type": "number"},
+        "optionality_charge_bps": {"type": "number"},
+        "contingent_draw_charge_bps": {"type": "number"},
+        "stress_surcharge_bps": {"type": "number"},
+        "stable_funding_credit_bps": {"type": "number"},
+        "franchise_credit_bps": {"type": "number"}
+      }
+    },
+    "expected_loss": {
+      "type": "object",
+      "required": ["pd", "lgd", "ead"],
+      "properties": {
+        "pd": {"type": "number", "minimum": 0, "maximum": 1},
+        "lgd": {"type": "number", "minimum": 0, "maximum": 1},
+        "ead": {"type": "number", "minimum": 0}
+      }
+    },
+    "recovery_surface": {
+      "type": "object",
+      "required": ["seniority", "collateral_quality", "jurisdiction_score", "macro_regime", "liquidity_regime", "workout_horizon_days", "market_state_price"],
+      "properties": {
+        "seniority": {"type": "number", "minimum": 0, "maximum": 1},
+        "collateral_quality": {"type": "number", "minimum": 0, "maximum": 1},
+        "jurisdiction_score": {"type": "number", "minimum": 0, "maximum": 1},
+        "macro_regime": {"type": "string"},
+        "liquidity_regime": {"type": "string"},
+        "workout_horizon_days": {"type": "integer", "minimum": 0},
+        "market_state_price": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "capital_stack": {
+      "type": "object",
+      "required": ["total", "credit", "market", "operational", "business"],
+      "properties": {
+        "total": {"type": "number", "minimum": 0},
+        "credit": {"type": "number", "minimum": 0},
+        "market": {"type": "number", "minimum": 0},
+        "operational": {"type": "number", "minimum": 0},
+        "business": {"type": "number", "minimum": 0}
+      }
+    }
+  }
+}
