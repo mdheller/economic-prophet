@@ -29,6 +29,24 @@ This repository layers the work from the economic-profit white paper into:
 - attribution engine
 - audit pack generation
 
+## Quick start
+
+```bash
+python -m pip install -e . pytest
+python -m pytest -q
+python -m open_ep_framework.cli --example examples/synthetic_run.json --audit audit.json
+```
+
+The CLI emits:
+- FTP rate
+- expected loss
+- planning recovery
+- market-implied recovery
+- recovery wedge
+- capital charge
+- zero-EP break-even rate
+- audit pack
+
 ## Ecosystem integration
 
 This reference implementation is designed to integrate with:
