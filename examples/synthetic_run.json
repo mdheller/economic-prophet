@@ -1,0 +1,42 @@
+{
+  "run_id": "synthetic-relationship-001",
+  "scenario": "base",
+  "balance": 10000000.0,
+  "fee_income": 12500.0,
+  "expense": 18000.0,
+  "tax_rate": 0.24,
+  "funding_credits": 0.0,
+  "horizon_years": 1.0,
+  "hurdle_rate": 0.12,
+  "ftp_stack": {
+    "matched_maturity_base_bps": 280.0,
+    "term_premium_bps": 35.0,
+    "liquidity_premium_bps": 22.0,
+    "optionality_charge_bps": 18.0,
+    "contingent_draw_charge_bps": 12.0,
+    "stress_surcharge_bps": 20.0,
+    "stable_funding_credit_bps": 10.0,
+    "franchise_credit_bps": 5.0
+  },
+  "expected_loss": {
+    "pd": 0.012,
+    "lgd": 0.45,
+    "ead": 10000000.0
+  },
+  "recovery_surface": {
+    "seniority": 0.7,
+    "collateral_quality": 0.6,
+    "jurisdiction_score": 0.8,
+    "macro_regime": "base",
+    "liquidity_regime": "normal",
+    "workout_horizon_days": 540,
+    "market_state_price": 0.4
+  },
+  "capital_stack": {
+    "total": 650000.0,
+    "credit": 420000.0,
+    "market": 90000.0,
+    "operational": 80000.0,
+    "business": 60000.0
+  }
+}
