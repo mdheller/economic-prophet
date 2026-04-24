@@ -1,22 +1,23 @@
-import json
 import argparse
+import json
 from pathlib import Path
 
-from .domain import FTPStack, ExpectedLossInputs, RecoverySurfaceInputs, CapitalStack, PricingContext
-from .ftp import ftp_rate
-from .expected_loss import expected_loss_amount
-from .recovery import planning_recovery, market_implied_recovery, recovery_wedge
-from .capital import capital_charge
 from .audit import write_audit_pack
+from .breakeven import economic_profit_for_rate, solve_break_even_rate
+from .capital import capital_charge
+from .domain import CapitalStack, ExpectedLossInputs, FTPStack, PricingContext, RecoverySurfaceInputs
+from .expected_loss import expected_loss_amount
+from .ftp import ftp_rate
+from .recovery import market_implied_recovery, planning_recovery, recovery_wedge
 
 
-def run_example(path: str) -> dict:
+def load_context(path: str):
     data = json.loads(Path(path).read_text())
     ftp_stack = FTPStack(**data["ftp_stack"])
     el = ExpectedLossInputs(**data["expected_loss"])
     recovery = RecoverySurfaceInputs(**data["recovery_surface"])
     capital = CapitalStack(**data["capital_stack"])
-    ctx = PricingContext(
+    context = PricingContext(
         balance=data["balance"],
         fee_income=data.get("fee_income", 0.0),
         expense=data.get("expense", 0.0),
@@ -24,26 +25,25 @@ def run_example(path: str) -> dict:
         funding_credits=data.get("funding_credits", 0.0),
         horizon_years=float(data.get("horizon_years", 1.0)),
     )
+    return data, context, ftp_stack, el, recovery, capital
 
-    ftp = ftp_rate(ftp_stack)
-    el_amt = expected_loss_amount(el)
-    rr_p = planning_recovery(recovery)
-    rr_q = market_implied_recovery(recovery)
-    wedge = recovery_wedge(recovery)
-    cap = capital_charge(capital, float(data.get("hurdle_rate", 0.12)))
 
-    # NOTE: The full zero-EP pricing solver is defined in docs/product_spec.md.
-    # The reference implementation will land in a follow-up PR to keep the repo
-    # aligned with platform policy and to ensure proper governance in code.
-    outputs = {
-        "ftp_rate": ftp,
-        "expected_loss": el_amt,
-        "planning_recovery": rr_p,
-        "market_implied_recovery": rr_q,
-        "recovery_wedge": wedge,
-        "capital_charge": cap,
+def run_example(path: str) -> dict:
+    data, context, ftp_stack, el, recovery, capital = load_context(path)
+    hurdle_rate = float(data.get("hurdle_rate", 0.12))
+    break_even_rate = solve_break_even_rate(context, ftp_stack, el, capital, recovery, hurdle_rate)
+    ep_at_break_even = economic_profit_for_rate(break_even_rate, context, ftp_stack, el, capital, recovery, hurdle_rate)
+
+    return {
+        "ftp_rate": ftp_rate(ftp_stack),
+        "expected_loss": expected_loss_amount(el),
+        "planning_recovery": planning_recovery(recovery),
+        "market_implied_recovery": market_implied_recovery(recovery),
+        "recovery_wedge": recovery_wedge(recovery),
+        "capital_charge": capital_charge(capital, hurdle_rate),
+        "break_even_rate": break_even_rate,
+        "economic_profit_at_break_even": ep_at_break_even,
     }
-    return outputs
 
 
 def main():
