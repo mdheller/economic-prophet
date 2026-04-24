@@ -9,6 +9,7 @@ from .domain import CapitalStack, ExpectedLossInputs, FTPStack, PricingContext, 
 from .expected_loss import expected_loss_amount
 from .ftp import ftp_rate
 from .recovery import market_implied_recovery, planning_recovery, recovery_wedge
+from .validation import validate_json_file
 
 
 def load_context(path: str):
@@ -29,6 +30,7 @@ def load_context(path: str):
 
 
 def run_example(path: str) -> dict:
+    validate_json_file(path, "schemas/synthetic_run.schema.json")
     data, context, ftp_stack, el, recovery, capital = load_context(path)
     hurdle_rate = float(data.get("hurdle_rate", 0.12))
     break_even_rate = solve_break_even_rate(context, ftp_stack, el, capital, recovery, hurdle_rate)
