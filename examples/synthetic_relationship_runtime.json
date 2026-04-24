@@ -1,0 +1,39 @@
+{
+  "relationship_id": "rel-synthetic-001",
+  "effects": {
+    "capital_diversification_factor": 0.18,
+    "collateral_overlap_factor": 0.35,
+    "utilization_interaction_bps": 22.0,
+    "franchise_credit_bps": 18.0,
+    "capital_hurdle_rate": 0.12
+  },
+  "items": [
+    {
+      "id": "item-001",
+      "balance": 6000000.0,
+      "rate": 0.041,
+      "capital": 390000.0,
+      "loss": 36000.0,
+      "util": 0.82,
+      "collateral": "collateral-a"
+    },
+    {
+      "id": "item-002",
+      "balance": 3000000.0,
+      "rate": 0.047,
+      "capital": 240000.0,
+      "loss": 22000.0,
+      "util": 0.41,
+      "collateral": "collateral-a"
+    },
+    {
+      "id": "item-003",
+      "balance": 1000000.0,
+      "rate": 0.018,
+      "capital": 40000.0,
+      "loss": 2500.0,
+      "util": 0.25,
+      "collateral": ""
+    }
+  ]
+}
