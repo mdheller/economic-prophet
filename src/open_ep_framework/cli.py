@@ -9,6 +9,7 @@ from .domain import CapitalStack, ExpectedLossInputs, FTPStack, PricingContext, 
 from .expected_loss import expected_loss_amount
 from .ftp import ftp_rate
 from .recovery import market_implied_recovery, planning_recovery, recovery_wedge
+from .relationship import RelationshipEffects, relationship_required_rate
 from .validation import validate_json_file
 
 
@@ -48,15 +49,45 @@ def run_example(path: str) -> dict:
     }
 
 
+def _relationship_items_to_transactions(items: list[dict]) -> list[dict]:
+    return [
+        {
+            "transaction_id": item["id"],
+            "balance": item["balance"],
+            "break_even_rate": item["rate"],
+            "capital": item["capital"],
+            "expected_loss": item["loss"],
+            "utilization": item["util"],
+            "collateral_set_id": item["collateral"],
+        }
+        for item in items
+    ]
+
+
+def run_relationship(path: str) -> dict:
+    validate_json_file(path, "schemas/relationship.schema.json")
+    data = json.loads(Path(path).read_text())
+    effects = RelationshipEffects(**data["effects"])
+    txs = _relationship_items_to_transactions(data["items"])
+    outputs = relationship_required_rate(txs, effects)
+    outputs["relationship_id"] = data["relationship_id"]
+    return outputs
+
+
 def main():
     p = argparse.ArgumentParser(prog="oepf")
+    p.add_argument("--mode", choices=["instrument", "relationship"], default="instrument")
     p.add_argument("--example", default="examples/synthetic_run.json")
     p.add_argument("--audit", default="audit.json")
     args = p.parse_args()
 
-    outputs = run_example(args.example)
+    if args.mode == "relationship":
+        outputs = run_relationship(args.example)
+    else:
+        outputs = run_example(args.example)
+
     inputs = json.loads(Path(args.example).read_text())
-    write_audit_pack(args.audit, inputs.get("run_id", "run"), inputs.get("scenario", "base"), "0.1.0", inputs, outputs)
+    write_audit_pack(args.audit, inputs.get("run_id", inputs.get("relationship_id", "run")), inputs.get("scenario", "base"), "0.1.0", inputs, outputs)
     print(json.dumps(outputs, indent=2, sort_keys=True))
 
 

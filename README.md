@@ -36,9 +36,10 @@ This repository layers the work from the economic-profit white paper into:
 python -m pip install -e . pytest
 python -m pytest -q
 python -m open_ep_framework.cli --example examples/synthetic_run.json --audit audit.json
+python -m open_ep_framework.cli --mode relationship --example examples/synthetic_relationship_runtime.json --audit relationship_audit.json
 ```
 
-The CLI emits:
+The instrument CLI emits:
 - FTP rate
 - expected loss
 - planning recovery
@@ -46,6 +47,15 @@ The CLI emits:
 - recovery wedge
 - capital charge
 - zero-EP break-even rate
+- audit pack
+
+The relationship CLI emits:
+- weighted instrument break-even rate
+- capital diversification credit
+- collateral overlap charge
+- utilization interaction charge
+- franchise / cross-sell credit
+- relationship required rate
 - audit pack
 
 ## Relationship portfolio effects
@@ -57,7 +67,7 @@ The relationship engine demonstrates why relationship profitability is not a bli
 - utilization interaction charge
 - franchise / cross-sell credit
 
-See `examples/synthetic_relationship.json` and `tests/test_relationship.py`.
+See `examples/synthetic_relationship_runtime.json`, `schemas/relationship.schema.json`, and `tests/test_relationship_cli.py`.
 
 ## Ecosystem integration
 
