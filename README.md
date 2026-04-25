@@ -58,6 +58,16 @@ The relationship CLI emits:
 - relationship required rate
 - audit pack
 
+## Canonical object model
+
+The runtime is moving toward a typed profitability graph:
+
+```text
+legal_entity -> line_of_business -> relationship -> account -> instrument -> transaction_event
+```
+
+Supporting objects include collateral sets, funding sources, hedge sets, scenarios, model versions, and parameter sets. See `docs/object_model.md`, `schemas/canonical_object.schema.json`, and `examples/canonical_object.json`.
+
 ## Relationship portfolio effects
 
 The relationship engine demonstrates why relationship profitability is not a blind sum of transactions. It decomposes relationship required rate into:

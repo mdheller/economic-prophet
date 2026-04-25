@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Audit Record",
+  "type": "object",
+  "required": ["run_id", "timestamp", "framework_version", "scenario", "parameter_version", "input_hash", "output_hash", "inputs", "outputs"],
+  "properties": {
+    "run_id": {"type": "string"},
+    "timestamp": {"type": "string"},
+    "framework_version": {"type": "string"},
+    "scenario": {"type": "string"},
+    "parameter_version": {"type": "string"},
+    "input_hash": {"type": "string"},
+    "output_hash": {"type": "string"},
+    "inputs": {"type": "object"},
+    "outputs": {"type": "object"},
+    "overrides": {"type": "array"}
+  }
+}

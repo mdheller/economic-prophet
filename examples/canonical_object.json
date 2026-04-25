@@ -1,0 +1,14 @@
+{
+  "object_id": "instrument-loan-001",
+  "parent_id": "account-credit-001",
+  "object_type": "instrument",
+  "as_of": "2026-04-24T00:00:00Z",
+  "source_system": "synthetic-core-banking",
+  "cadence": "daily",
+  "legal_entity_id": "entity-bank-holdco",
+  "line_of_business_id": "commercial-banking",
+  "relationship_id": "rel-synthetic-001",
+  "account_id": "account-credit-001",
+  "instrument_id": "loan-001",
+  "transaction_event_id": ""
+}
