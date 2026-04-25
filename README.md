@@ -29,6 +29,7 @@ This repository layers the work from the economic-profit white paper into:
 - attribution engine
 - relationship portfolio effects
 - object graph runtime
+- lineage-aware EP outputs
 - audit pack generation
 
 ## Quick start
@@ -38,6 +39,7 @@ python -m pip install -e . pytest
 python -m pytest -q
 python -m open_ep_framework.cli --example examples/synthetic_run.json --audit audit.json
 python -m open_ep_framework.cli --mode relationship --example examples/synthetic_relationship_runtime.json --audit relationship_audit.json
+python -m open_ep_framework.cli --mode object-graph --example examples/object_graph.json --object-id instrument-loan-001 --audit object_graph_audit.json
 ```
 
 The instrument CLI emits:
@@ -59,6 +61,8 @@ The relationship CLI emits:
 - relationship required rate
 - audit pack
 
+The object-graph CLI emits lineage-aware EP output for a selected object and writes the same auditable run record format.
+
 ## Canonical object model
 
 The runtime is moving toward a typed profitability graph:
@@ -67,7 +71,7 @@ The runtime is moving toward a typed profitability graph:
 legal_entity -> line_of_business -> relationship -> account -> instrument -> transaction_event
 ```
 
-Supporting objects include collateral sets, funding sources, hedge sets, scenarios, model versions, and parameter sets. See `docs/object_model.md`, `schemas/canonical_object.schema.json`, `examples/canonical_object.json`, `examples/object_graph.json`, and `src/open_ep_framework/object_graph.py`.
+Supporting objects include collateral sets, funding sources, hedge sets, scenarios, model versions, and parameter sets. See `docs/object_model.md`, `schemas/canonical_object.schema.json`, `schemas/lineage_ep_output.schema.json`, `examples/canonical_object.json`, `examples/object_graph.json`, and `src/open_ep_framework/object_graph.py`.
 
 ## Relationship portfolio effects
 
