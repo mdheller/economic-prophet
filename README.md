@@ -61,7 +61,7 @@ The relationship CLI emits:
 - relationship required rate
 - audit pack
 
-The object-graph CLI emits lineage-aware EP output for a selected object and writes the same auditable run record format.
+The object-graph CLI emits lineage-aware EP output for a selected object and writes the same auditable run record format. Object graph files are now validated against `schemas/canonical_object.schema.json` during load.
 
 ## Canonical object model
 
