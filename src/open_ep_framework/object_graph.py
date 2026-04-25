@@ -1,7 +1,11 @@
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Iterable
+
+from .validation import validate_instance
 
 
 @dataclass(frozen=True)
@@ -24,6 +28,10 @@ class ObjectGraphError(ValueError):
     pass
 
 
+def load_canonical_object_schema(schema_path: str = "schemas/canonical_object.schema.json") -> dict:
+    return json.loads(Path(schema_path).read_text())
+
+
 class ObjectGraph:
     def __init__(self, objects: Iterable[CanonicalObject]):
         self.objects = {obj.object_id: obj for obj in objects}
@@ -31,8 +39,19 @@ class ObjectGraph:
             raise ObjectGraphError("object graph must contain at least one object")
 
     @classmethod
-    def from_dicts(cls, records: list[dict]) -> "ObjectGraph":
+    def from_dicts(cls, records: list[dict], validate: bool = False, schema_path: str = "schemas/canonical_object.schema.json") -> "ObjectGraph":
+        if validate:
+            schema = load_canonical_object_schema(schema_path)
+            for record in records:
+                validate_instance(record, schema)
         return cls(CanonicalObject(**record) for record in records)
+
+    @classmethod
+    def from_json_file(cls, path: str, validate: bool = True, schema_path: str = "schemas/canonical_object.schema.json") -> "ObjectGraph":
+        records = json.loads(Path(path).read_text())
+        if not isinstance(records, list):
+            raise ObjectGraphError("object graph JSON must be a list of canonical objects")
+        return cls.from_dicts(records, validate=validate, schema_path=schema_path)
 
     def get(self, object_id: str) -> CanonicalObject:
         try:
