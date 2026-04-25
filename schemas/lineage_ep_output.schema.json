@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Lineage Aware Economic Profit Output",
+  "type": "object",
+  "required": ["lineage", "components"],
+  "properties": {
+    "lineage": {
+      "type": "object",
+      "required": ["object_id", "object_type", "as_of", "source_system", "cadence", "parent_chain", "type_chain"],
+      "properties": {
+        "object_id": {"type": "string"},
+        "object_type": {"type": "string"},
+        "as_of": {"type": "string"},
+        "source_system": {"type": "string"},
+        "cadence": {"type": "string"},
+        "parent_chain": {"type": "array"},
+        "type_chain": {"type": "array"},
+        "legal_entity_id": {"type": "string"},
+        "line_of_business_id": {"type": "string"},
+        "relationship_id": {"type": "string"},
+        "account_id": {"type": "string"},
+        "instrument_id": {"type": "string"},
+        "transaction_event_id": {"type": "string"}
+      }
+    },
+    "components": {
+      "type": "object",
+      "required": ["economic_profit"],
+      "properties": {
+        "economic_profit": {"type": "number"},
+        "revenue": {"type": "number"},
+        "expected_loss": {"type": "number"},
+        "expense": {"type": "number"},
+        "funding_costs": {"type": "number"},
+        "funding_credits": {"type": "number"},
+        "taxes": {"type": "number"},
+        "capital_charge": {"type": "number"}
+      }
+    }
+  }
+}
