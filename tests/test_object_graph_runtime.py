@@ -1,4 +1,6 @@
-from open_ep_framework.object_graph import ObjectGraph
+import pytest
+
+from open_ep_framework.object_graph import ObjectGraph, ObjectGraphError
 
 
 def test_object_graph_runtime_smoke():
@@ -10,3 +12,16 @@ def test_object_graph_runtime_smoke():
     data = graph.lineage("child")
     assert data["object_id"] == "child"
     assert data["parent_chain"] == ["root"]
+
+
+def test_validated_object_graph_loader():
+    graph = ObjectGraph.from_json_file("examples/object_graph.json", validate=True)
+    data = graph.lineage("instrument-loan-001")
+    assert data["relationship_id"] == "rel-synthetic-001"
+
+
+def test_object_graph_loader_rejects_non_list(tmp_path):
+    path = tmp_path / "bad_graph.json"
+    path.write_text("{}")
+    with pytest.raises(ObjectGraphError):
+        ObjectGraph.from_json_file(str(path), validate=True)
