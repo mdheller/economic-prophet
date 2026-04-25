@@ -28,6 +28,7 @@ This repository layers the work from the economic-profit white paper into:
 - capital charge engine
 - attribution engine
 - relationship portfolio effects
+- object graph runtime
 - audit pack generation
 
 ## Quick start
@@ -66,7 +67,7 @@ The runtime is moving toward a typed profitability graph:
 legal_entity -> line_of_business -> relationship -> account -> instrument -> transaction_event
 ```
 
-Supporting objects include collateral sets, funding sources, hedge sets, scenarios, model versions, and parameter sets. See `docs/object_model.md`, `schemas/canonical_object.schema.json`, and `examples/canonical_object.json`.
+Supporting objects include collateral sets, funding sources, hedge sets, scenarios, model versions, and parameter sets. See `docs/object_model.md`, `schemas/canonical_object.schema.json`, `examples/canonical_object.json`, `examples/object_graph.json`, and `src/open_ep_framework/object_graph.py`.
 
 ## Relationship portfolio effects
 
