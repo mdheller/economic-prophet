@@ -29,6 +29,7 @@ This repository layers the work from the economic-profit white paper into:
 - attribution engine
 - relationship portfolio effects
 - object graph runtime
+- product object loaders
 - lineage-aware EP outputs
 - audit pack generation
 
@@ -73,9 +74,9 @@ legal_entity -> line_of_business -> relationship -> account -> instrument -> tra
 
 Supporting objects include collateral sets, funding sources, hedge sets, scenarios, model versions, and parameter sets. See `docs/object_model.md`, `schemas/canonical_object.schema.json`, `schemas/lineage_ep_output.schema.json`, `examples/canonical_object.json`, `examples/object_graph.json`, and `src/open_ep_framework/object_graph.py`.
 
-## Product object schemas
+## Product object schemas and loaders
 
-The repository includes first-pass product object contracts for:
+The repository includes first-pass product object contracts and loaders for:
 - account
 - instrument
 - transaction event
@@ -83,7 +84,7 @@ The repository includes first-pass product object contracts for:
 - funding source
 - hedge set
 
-Each schema has a matching synthetic fixture under `examples/` and a validation test under `tests/test_product_object_schemas.py`.
+Each schema has a matching synthetic fixture under `examples/`, a validation test under `tests/test_product_object_schemas.py`, and loader/join coverage under `tests/test_product_object_loaders.py`.
 
 ## Relationship portfolio effects
 
