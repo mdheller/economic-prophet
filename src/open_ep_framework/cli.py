@@ -76,8 +76,7 @@ def run_relationship(path: str) -> dict:
 
 
 def run_object_graph(path: str, object_id: str) -> dict:
-    records = json.loads(Path(path).read_text())
-    graph = ObjectGraph.from_dicts(records)
+    graph = ObjectGraph.from_json_file(path, validate=True)
     return lineage_aware_output(object_id, graph, {"economic_profit": 0.0})
 
 
