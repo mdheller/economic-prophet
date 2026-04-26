@@ -1,0 +1,12 @@
+{
+  "collateral_set_id": "collateral-a",
+  "as_of": "2026-04-24T00:00:00Z",
+  "currency": "USD",
+  "market_value": 8500000.0,
+  "haircut": 0.25,
+  "eligible_value": 6375000.0,
+  "assets": [
+    {"asset_id": "real-estate-001", "asset_type": "commercial_real_estate", "market_value": 8500000.0}
+  ],
+  "attributes": {"jurisdiction": "US-PA"}
+}
