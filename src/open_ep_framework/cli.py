@@ -9,6 +9,7 @@ from .domain import CapitalStack, ExpectedLossInputs, FTPStack, PricingContext, 
 from .expected_loss import expected_loss_amount
 from .ftp import ftp_rate
 from .object_graph import ObjectGraph, lineage_aware_output
+from .product_objects import build_instrument_context
 from .recovery import market_implied_recovery, planning_recovery, recovery_wedge
 from .relationship import RelationshipEffects, relationship_required_rate
 from .validation import validate_json_file
@@ -80,22 +81,56 @@ def run_object_graph(path: str, object_id: str) -> dict:
     return lineage_aware_output(object_id, graph, {"economic_profit": 0.0})
 
 
+def run_object_context(args) -> dict:
+    return build_instrument_context(
+        graph_path=args.graph,
+        graph_object_id=args.object_id,
+        account_path=args.account,
+        instrument_path=args.instrument,
+        transaction_event_path=args.event,
+        collateral_path=args.collateral,
+        funding_path=args.funding,
+        hedge_path=args.hedge,
+    )
+
+
 def main():
     p = argparse.ArgumentParser(prog="oepf")
-    p.add_argument("--mode", choices=["instrument", "relationship", "object-graph"], default="instrument")
+    p.add_argument("--mode", choices=["instrument", "relationship", "object-graph", "object-context"], default="instrument")
     p.add_argument("--example", default="examples/synthetic_run.json")
     p.add_argument("--audit", default="audit.json")
     p.add_argument("--object-id", default="instrument-loan-001")
+    p.add_argument("--graph", default="examples/object_graph.json")
+    p.add_argument("--account", default="examples/account.json")
+    p.add_argument("--instrument", default="examples/instrument.json")
+    p.add_argument("--event", default="examples/transaction_event.json")
+    p.add_argument("--collateral", default="examples/collateral_set.json")
+    p.add_argument("--funding", default="examples/funding_source.json")
+    p.add_argument("--hedge", default="examples/hedge_set.json")
     args = p.parse_args()
 
     if args.mode == "relationship":
         outputs = run_relationship(args.example)
+        inputs = json.loads(Path(args.example).read_text())
     elif args.mode == "object-graph":
         outputs = run_object_graph(args.example, args.object_id)
+        inputs = json.loads(Path(args.example).read_text())
+    elif args.mode == "object-context":
+        outputs = run_object_context(args)
+        inputs = {
+            "graph": args.graph,
+            "object_id": args.object_id,
+            "account": args.account,
+            "instrument": args.instrument,
+            "event": args.event,
+            "collateral": args.collateral,
+            "funding": args.funding,
+            "hedge": args.hedge,
+        }
     else:
         outputs = run_example(args.example)
+        inputs = json.loads(Path(args.example).read_text())
 
-    inputs = json.loads(Path(args.example).read_text())
     run_id = inputs.get("run_id") if isinstance(inputs, dict) else None
     run_id = run_id or (inputs.get("relationship_id") if isinstance(inputs, dict) else None) or args.object_id
     scenario = inputs.get("scenario", "base") if isinstance(inputs, dict) else "base"
