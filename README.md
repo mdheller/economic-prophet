@@ -28,6 +28,7 @@ This repository layers the work from the economic-profit white paper into:
 - capital charge engine
 - attribution engine
 - relationship portfolio effects
+- relationship context outputs
 - object graph runtime
 - product object loaders
 - instrument context outputs
@@ -42,6 +43,7 @@ python -m pytest -q
 python -m open_ep_framework.cli --example examples/synthetic_run.json --audit audit.json
 python -m open_ep_framework.cli --mode instrument-context --example examples/synthetic_run.json --object-id instrument-loan-001 --audit instrument_context_audit.json
 python -m open_ep_framework.cli --mode relationship --example examples/synthetic_relationship_runtime.json --audit relationship_audit.json
+python -m open_ep_framework.cli --mode relationship-context --example examples/synthetic_relationship_runtime.json --relationship-object-id rel-synthetic-001 --audit relationship_context_audit.json
 python -m open_ep_framework.cli --mode object-graph --example examples/object_graph.json --object-id instrument-loan-001 --audit object_graph_audit.json
 python -m open_ep_framework.cli --mode object-context --object-id instrument-loan-001 --audit object_context_audit.json
 ```
@@ -66,6 +68,8 @@ The relationship CLI emits:
 - franchise / cross-sell credit
 - relationship required rate
 - audit pack
+
+The relationship-context CLI emits the same relationship calculation with relationship lineage from the object graph.
 
 The object-graph CLI emits lineage-aware EP output for a selected object and writes the same auditable run record format. Object graph files are validated against `schemas/canonical_object.schema.json` during load.
 
