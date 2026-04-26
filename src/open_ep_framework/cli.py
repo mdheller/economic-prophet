@@ -70,7 +70,7 @@ def _relationship_items_to_transactions(items: list[dict]) -> list[dict]:
     ]
 
 
-def run_relationship(path: str) -> dict:
+def _relationship_calculation(path: str) -> dict:
     validate_json_file(path, "schemas/relationship.schema.json")
     data = json.loads(Path(path).read_text())
     effects = RelationshipEffects(**data["effects"])
@@ -78,6 +78,24 @@ def run_relationship(path: str) -> dict:
     outputs = relationship_required_rate(txs, effects)
     outputs["relationship_id"] = data["relationship_id"]
     return outputs
+
+
+def run_relationship(path: str) -> dict:
+    return _relationship_calculation(path)
+
+
+def run_relationship_context(path: str, graph_path: str, relationship_object_id: str) -> dict:
+    graph = ObjectGraph.from_json_file(graph_path, validate=True)
+    calculation = _relationship_calculation(path)
+    lineage = graph.lineage(relationship_object_id)
+    if lineage.get("relationship_id") and lineage["relationship_id"] != calculation["relationship_id"]:
+        raise ValueError("relationship fixture does not match object graph lineage")
+    return {
+        "calculation": calculation,
+        "relationship_context": {
+            "lineage": lineage,
+        },
+    }
 
 
 def run_object_graph(path: str, object_id: str) -> dict:
@@ -107,10 +125,11 @@ def run_instrument_context(args) -> dict:
 
 def main():
     p = argparse.ArgumentParser(prog="oepf")
-    p.add_argument("--mode", choices=["instrument", "instrument-context", "relationship", "object-graph", "object-context"], default="instrument")
+    p.add_argument("--mode", choices=["instrument", "instrument-context", "relationship", "relationship-context", "object-graph", "object-context"], default="instrument")
     p.add_argument("--example", default="examples/synthetic_run.json")
     p.add_argument("--audit", default="audit.json")
     p.add_argument("--object-id", default="instrument-loan-001")
+    p.add_argument("--relationship-object-id", default="rel-synthetic-001")
     p.add_argument("--graph", default="examples/object_graph.json")
     p.add_argument("--account", default="examples/account.json")
     p.add_argument("--instrument", default="examples/instrument.json")
@@ -123,6 +142,9 @@ def main():
     if args.mode == "relationship":
         outputs = run_relationship(args.example)
         inputs = json.loads(Path(args.example).read_text())
+    elif args.mode == "relationship-context":
+        outputs = run_relationship_context(args.example, args.graph, args.relationship_object_id)
+        inputs = {"relationship_input": json.loads(Path(args.example).read_text()), "graph": args.graph, "relationship_object_id": args.relationship_object_id}
     elif args.mode == "object-graph":
         outputs = run_object_graph(args.example, args.object_id)
         inputs = json.loads(Path(args.example).read_text())
