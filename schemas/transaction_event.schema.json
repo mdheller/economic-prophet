@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Transaction Event",
+  "type": "object",
+  "required": ["event_id", "instrument_id", "account_id", "relationship_id", "legal_entity_id", "line_of_business_id", "event_time", "event_type"],
+  "properties": {
+    "event_id": {"type": "string"},
+    "instrument_id": {"type": "string"},
+    "account_id": {"type": "string"},
+    "relationship_id": {"type": "string"},
+    "legal_entity_id": {"type": "string"},
+    "line_of_business_id": {"type": "string"},
+    "event_time": {"type": "string"},
+    "event_type": {"type": "string"},
+    "delta_balance": {"type": "number"},
+    "delta_exposure": {"type": "number"},
+    "delta_fee": {"type": "number"},
+    "attributes": {"type": "object"}
+  }
+}

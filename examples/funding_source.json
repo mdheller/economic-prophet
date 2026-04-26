@@ -1,0 +1,9 @@
+{
+  "funding_source_id": "ftp-usd-commercial-base",
+  "as_of": "2026-04-24T00:00:00Z",
+  "curve_name": "USD Commercial Matched Maturity FTP",
+  "currency": "USD",
+  "tenors": ["1M", "3M", "1Y", "3Y", "5Y"],
+  "rates": [0.041, 0.042, 0.044, 0.047, 0.049],
+  "attributes": {"source": "synthetic_treasury"}
+}

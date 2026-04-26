@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Hedge Set",
+  "type": "object",
+  "required": ["hedge_set_id", "as_of", "currency"],
+  "properties": {
+    "hedge_set_id": {"type": "string"},
+    "as_of": {"type": "string"},
+    "currency": {"type": "string"},
+    "instruments": {"type": "array"},
+    "attributes": {"type": "object"}
+  }
+}

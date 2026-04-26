@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Account",
+  "type": "object",
+  "required": ["account_id", "relationship_id", "legal_entity_id", "line_of_business_id", "as_of", "cadence"],
+  "properties": {
+    "account_id": {"type": "string"},
+    "relationship_id": {"type": "string"},
+    "legal_entity_id": {"type": "string"},
+    "line_of_business_id": {"type": "string"},
+    "as_of": {"type": "string"},
+    "cadence": {"type": "string"},
+    "currency": {"type": "string"},
+    "balances": {"type": "object"},
+    "attributes": {"type": "object"}
+  }
+}
