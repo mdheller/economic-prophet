@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Funding Source",
+  "type": "object",
+  "required": ["funding_source_id", "as_of", "curve_name", "currency"],
+  "properties": {
+    "funding_source_id": {"type": "string"},
+    "as_of": {"type": "string"},
+    "curve_name": {"type": "string"},
+    "currency": {"type": "string"},
+    "tenors": {"type": "array"},
+    "rates": {"type": "array"},
+    "attributes": {"type": "object"}
+  }
+}
