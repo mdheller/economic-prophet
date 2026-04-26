@@ -30,6 +30,7 @@ This repository layers the work from the economic-profit white paper into:
 - relationship portfolio effects
 - object graph runtime
 - product object loaders
+- instrument context outputs
 - lineage-aware EP outputs
 - audit pack generation
 
@@ -39,6 +40,7 @@ This repository layers the work from the economic-profit white paper into:
 python -m pip install -e . pytest
 python -m pytest -q
 python -m open_ep_framework.cli --example examples/synthetic_run.json --audit audit.json
+python -m open_ep_framework.cli --mode instrument-context --example examples/synthetic_run.json --object-id instrument-loan-001 --audit instrument_context_audit.json
 python -m open_ep_framework.cli --mode relationship --example examples/synthetic_relationship_runtime.json --audit relationship_audit.json
 python -m open_ep_framework.cli --mode object-graph --example examples/object_graph.json --object-id instrument-loan-001 --audit object_graph_audit.json
 python -m open_ep_framework.cli --mode object-context --object-id instrument-loan-001 --audit object_context_audit.json
@@ -53,6 +55,8 @@ The instrument CLI emits:
 - capital charge
 - zero-EP break-even rate
 - audit pack
+
+The instrument-context CLI emits the same instrument calculation with joined object context: lineage, account, instrument, transaction event, collateral set, funding source, and hedge set.
 
 The relationship CLI emits:
 - weighted instrument break-even rate
