@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Relationship Context Output",
+  "type": "object",
+  "required": ["calculation", "relationship_context"],
+  "properties": {
+    "calculation": {
+      "type": "object",
+      "required": ["relationship_id", "relationship_required_rate", "weighted_instrument_break_even_rate"],
+      "properties": {
+        "relationship_id": {"type": "string"},
+        "relationship_required_rate": {"type": "number"},
+        "weighted_instrument_break_even_rate": {"type": "number"},
+        "capital_diversification_credit": {"type": "number"},
+        "collateral_overlap_charge": {"type": "number"},
+        "utilization_interaction_charge": {"type": "number"},
+        "franchise_credit": {"type": "number"}
+      }
+    },
+    "relationship_context": {
+      "type": "object",
+      "required": ["lineage"],
+      "properties": {
+        "lineage": {"type": "object"}
+      }
+    }
+  }
+}
