@@ -32,7 +32,7 @@ def load_context(path: str):
     return data, context, ftp_stack, el, recovery, capital
 
 
-def run_example(path: str) -> dict:
+def _instrument_components(path: str) -> dict:
     validate_json_file(path, "schemas/synthetic_run.schema.json")
     data, context, ftp_stack, el, recovery, capital = load_context(path)
     hurdle_rate = float(data.get("hurdle_rate", 0.12))
@@ -49,6 +49,10 @@ def run_example(path: str) -> dict:
         "break_even_rate": break_even_rate,
         "economic_profit_at_break_even": ep_at_break_even,
     }
+
+
+def run_example(path: str) -> dict:
+    return _instrument_components(path)
 
 
 def _relationship_items_to_transactions(items: list[dict]) -> list[dict]:
@@ -94,9 +98,16 @@ def run_object_context(args) -> dict:
     )
 
 
+def run_instrument_context(args) -> dict:
+    return {
+        "calculation": _instrument_components(args.example),
+        "object_context": run_object_context(args),
+    }
+
+
 def main():
     p = argparse.ArgumentParser(prog="oepf")
-    p.add_argument("--mode", choices=["instrument", "relationship", "object-graph", "object-context"], default="instrument")
+    p.add_argument("--mode", choices=["instrument", "instrument-context", "relationship", "object-graph", "object-context"], default="instrument")
     p.add_argument("--example", default="examples/synthetic_run.json")
     p.add_argument("--audit", default="audit.json")
     p.add_argument("--object-id", default="instrument-loan-001")
@@ -118,6 +129,19 @@ def main():
     elif args.mode == "object-context":
         outputs = run_object_context(args)
         inputs = {
+            "graph": args.graph,
+            "object_id": args.object_id,
+            "account": args.account,
+            "instrument": args.instrument,
+            "event": args.event,
+            "collateral": args.collateral,
+            "funding": args.funding,
+            "hedge": args.hedge,
+        }
+    elif args.mode == "instrument-context":
+        outputs = run_instrument_context(args)
+        inputs = {
+            "instrument_input": json.loads(Path(args.example).read_text()),
             "graph": args.graph,
             "object_id": args.object_id,
             "account": args.account,
