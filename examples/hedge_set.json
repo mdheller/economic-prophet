@@ -1,0 +1,9 @@
+{
+  "hedge_set_id": "hedge-set-ir-001",
+  "as_of": "2026-04-24T00:00:00Z",
+  "currency": "USD",
+  "instruments": [
+    {"instrument_id": "swap-pay-fixed-001", "hedge_type": "interest_rate_swap", "notional": 5000000.0}
+  ],
+  "attributes": {"managed_by": "treasury"}
+}
