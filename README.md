@@ -34,6 +34,7 @@ This repository layers the work from the economic-profit white paper into:
 - instrument context outputs
 - lineage-aware EP outputs
 - context output schemas
+- Heller mesh measurement runtime
 - audit pack generation
 
 ## Quick start
@@ -47,6 +48,7 @@ python -m open_ep_framework.cli --mode relationship --example examples/synthetic
 python -m open_ep_framework.cli --mode relationship-context --example examples/synthetic_relationship_runtime.json --relationship-object-id rel-synthetic-001 --audit relationship_context_audit.json
 python -m open_ep_framework.cli --mode object-graph --example examples/object_graph.json --object-id instrument-loan-001 --audit object_graph_audit.json
 python -m open_ep_framework.cli --mode object-context --object-id instrument-loan-001 --audit object_context_audit.json
+python -m open_ep_framework.cli --mode heller-mesh --example examples/heller_mesh_measurement.json --audit heller_mesh_audit.json
 ```
 
 The instrument CLI emits:
@@ -76,6 +78,8 @@ The object-graph CLI emits lineage-aware EP output for a selected object and wri
 
 The object-context CLI emits a joined runtime context for a selected instrument, including object lineage, account, instrument, transaction event, collateral set, funding source, and hedge set.
 
+The Heller mesh CLI emits a validated internal measurement run for the Heller flywheel mechanics: sphere states, transfer-pricing edges, triparty faces, Micro/Credit/Reserve supply, reserve adequacy, credit utilization, gross-to-net compression, and auditable run hashes.
+
 ## Context output schemas
 
 The repository includes formal schemas for context-aware runtime outputs:
@@ -84,6 +88,17 @@ The repository includes formal schemas for context-aware runtime outputs:
 - `schemas/context_audit_record.schema.json`
 
 These schemas make instrument and relationship context outputs testable as auditable product surfaces.
+
+## Heller mesh measurement mechanics
+
+The repository now includes a schema-first measurement boundary for the Heller flywheel economy:
+- `docs/heller_mesh_measurement.md`
+- `schemas/heller_mesh_measurement.schema.json`
+- `examples/heller_mesh_measurement.json`
+- `src/open_ep_framework/heller_mesh.py`
+- `tests/test_heller_mesh.py`
+
+This mode treats Economic Prophet as the measurement engine, Heller as the internal economic mechanics, and governed triparty netting as the release constitution. It does **not** implement live money movement, external token issuance, redemption rights, public-chain settlement, or exchange trading.
 
 ## Canonical object model
 
