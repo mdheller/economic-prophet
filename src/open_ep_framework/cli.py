@@ -8,6 +8,7 @@ from .capital import capital_charge
 from .domain import CapitalStack, ExpectedLossInputs, FTPStack, PricingContext, RecoverySurfaceInputs
 from .expected_loss import expected_loss_amount
 from .ftp import ftp_rate
+from .heller_mesh import run_heller_mesh
 from .object_graph import ObjectGraph, lineage_aware_output
 from .product_objects import build_instrument_context
 from .recovery import market_implied_recovery, planning_recovery, recovery_wedge
@@ -125,7 +126,7 @@ def run_instrument_context(args) -> dict:
 
 def main():
     p = argparse.ArgumentParser(prog="oepf")
-    p.add_argument("--mode", choices=["instrument", "instrument-context", "relationship", "relationship-context", "object-graph", "object-context"], default="instrument")
+    p.add_argument("--mode", choices=["instrument", "instrument-context", "relationship", "relationship-context", "object-graph", "object-context", "heller-mesh"], default="instrument")
     p.add_argument("--example", default="examples/synthetic_run.json")
     p.add_argument("--audit", default="audit.json")
     p.add_argument("--object-id", default="instrument-loan-001")
@@ -173,6 +174,9 @@ def main():
             "funding": args.funding,
             "hedge": args.hedge,
         }
+    elif args.mode == "heller-mesh":
+        outputs = run_heller_mesh(args.example)
+        inputs = outputs["measurement"]
     else:
         outputs = run_example(args.example)
         inputs = json.loads(Path(args.example).read_text())
