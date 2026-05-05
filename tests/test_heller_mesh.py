@@ -21,7 +21,7 @@ def test_heller_mesh_summary_metrics_are_deterministic():
     assert summary["edge_count"] == 6
     assert summary["triparty_face_count"] == 2
     assert summary["total_credit_exposure"] == 4.0
-    assert summary["total_required_collateral"] == 0.85
+    assert abs(summary["total_required_collateral"] - 0.85) < 1e-9
     assert abs(summary["computed_reserve_adequacy"] - 28.470588235294116) < 1e-9
     assert abs(summary["computed_credit_utilization"] - 0.1) < 1e-9
     assert abs(summary["computed_gross_to_net_compression"] - 0.7222222222222223) < 1e-9
