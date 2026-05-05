@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Instrument Context Output",
+  "type": "object",
+  "required": ["calculation", "object_context"],
+  "properties": {
+    "calculation": {
+      "type": "object",
+      "required": ["break_even_rate", "economic_profit_at_break_even", "ftp_rate", "expected_loss", "capital_charge"],
+      "properties": {
+        "break_even_rate": {"type": "number"},
+        "economic_profit_at_break_even": {"type": "number"},
+        "ftp_rate": {"type": "number"},
+        "expected_loss": {"type": "number"},
+        "capital_charge": {"type": "number"}
+      }
+    },
+    "object_context": {
+      "type": "object",
+      "required": ["lineage", "account", "instrument", "transaction_event", "collateral_set", "funding_source", "hedge_set"],
+      "properties": {
+        "lineage": {"type": "object"},
+        "account": {"type": "object"},
+        "instrument": {"type": "object"},
+        "transaction_event": {"type": "object"},
+        "collateral_set": {"type": "object"},
+        "funding_source": {"type": "object"},
+        "hedge_set": {"type": "object"}
+      }
+    }
+  }
+}

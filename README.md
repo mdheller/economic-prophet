@@ -33,6 +33,7 @@ This repository layers the work from the economic-profit white paper into:
 - product object loaders
 - instrument context outputs
 - lineage-aware EP outputs
+- context output schemas
 - audit pack generation
 
 ## Quick start
@@ -74,6 +75,15 @@ The relationship-context CLI emits the same relationship calculation with relati
 The object-graph CLI emits lineage-aware EP output for a selected object and writes the same auditable run record format. Object graph files are validated against `schemas/canonical_object.schema.json` during load.
 
 The object-context CLI emits a joined runtime context for a selected instrument, including object lineage, account, instrument, transaction event, collateral set, funding source, and hedge set.
+
+## Context output schemas
+
+The repository includes formal schemas for context-aware runtime outputs:
+- `schemas/instrument_context_output.schema.json`
+- `schemas/relationship_context_output.schema.json`
+- `schemas/context_audit_record.schema.json`
+
+These schemas make instrument and relationship context outputs testable as auditable product surfaces.
 
 ## Canonical object model
 
