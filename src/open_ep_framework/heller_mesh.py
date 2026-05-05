@@ -8,17 +8,28 @@ from .validation import validate_json_file
 
 CANONICAL_SPHERES = {
     "security",
+    "dev",
     "forensics",
     "community",
     "attestation",
     "mesh",
-    "champion_challenger",
+    "champion",
     "packaging",
     "education",
     "federation",
     "governance",
-    "developer_platform",
 }
+
+SPHERE_ALIASES = {
+    "developer_platform": "dev",
+    "champion_challenger": "champion",
+    "champion-challenger": "champion",
+}
+
+
+def normalize_sphere_id(sphere_id: str) -> str:
+    """Normalize diagram aliases to the canonical Heller sphere names."""
+    return SPHERE_ALIASES.get(sphere_id, sphere_id)
 
 
 def load_heller_mesh_measurement(path: str) -> dict:
@@ -45,6 +56,7 @@ def summarize_heller_mesh(data: dict) -> dict:
     faces = data.get("triparty_faces", [])
     supply = data.get("heller_supply", {})
     sphere_ids = {sphere.get("sphere_id", "") for sphere in data.get("sphere_states", [])}
+    normalized_sphere_ids = {normalize_sphere_id(sphere_id) for sphere_id in sphere_ids}
 
     total_credit_exposure = sum(float(edge.get("credit_exposure", 0.0)) for edge in edges)
     total_required_collateral = sum(float(edge.get("required_collateral", 0.0)) for edge in edges)
@@ -59,8 +71,8 @@ def summarize_heller_mesh(data: dict) -> dict:
         "run_id": data.get("run_id", ""),
         "scenario": data.get("scenario", ""),
         "sphere_count": len(sphere_ids),
-        "known_canonical_sphere_count": len(sphere_ids & CANONICAL_SPHERES),
-        "unknown_spheres": sorted(sphere_ids - CANONICAL_SPHERES),
+        "known_canonical_sphere_count": len(normalized_sphere_ids & CANONICAL_SPHERES),
+        "unknown_spheres": sorted(normalized_sphere_ids - CANONICAL_SPHERES),
         "edge_count": len(edges),
         "triparty_face_count": len(faces),
         "total_credit_exposure": total_credit_exposure,
