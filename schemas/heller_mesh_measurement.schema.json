@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Heller Mesh Measurement",
+  "type": "object",
+  "required": ["run_id", "scenario", "as_of", "sphere_states", "edge_measurements", "triparty_faces", "heller_supply", "reserve_adequacy", "credit_utilization", "gross_to_net_compression"],
+  "properties": {
+    "run_id": {"type": "string"},
+    "scenario": {"type": "string"},
+    "as_of": {"type": "string"},
+    "framework_version": {"type": "string"},
+    "sphere_states": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["sphere_id", "economic_profit", "momentum", "knowledge_quality", "micro_supply", "credit_supply", "reserve_supply"],
+        "properties": {
+          "sphere_id": {"type": "string"},
+          "economic_profit": {"type": "number"},
+          "momentum": {"type": "number"},
+          "knowledge_quality": {"type": "number", "minimum": 0, "maximum": 1},
+          "micro_supply": {"type": "number"},
+          "credit_supply": {"type": "number"},
+          "reserve_supply": {"type": "number"},
+          "risk_charge": {"type": "number"},
+          "capital_charge": {"type": "number"}
+        }
+      }
+    },
+    "edge_measurements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source_sphere_id", "target_sphere_id", "delta_ep", "knowledge_quality", "transfer_price", "credit_exposure", "required_collateral"],
+        "properties": {
+          "source_sphere_id": {"type": "string"},
+          "target_sphere_id": {"type": "string"},
+          "delta_ep": {"type": "number"},
+          "knowledge_quality": {"type": "number", "minimum": 0, "maximum": 1},
+          "transfer_price": {"type": "number"},
+          "credit_exposure": {"type": "number"},
+          "required_collateral": {"type": "number"},
+          "pending_settlement_risk": {"type": "number"},
+          "dispute_reserve": {"type": "number"},
+          "chargeback_reserve": {"type": "number"},
+          "rights_warranty_reserve": {"type": "number"},
+          "operational_risk_charge": {"type": "number"},
+          "concentration_charge": {"type": "number"}
+        }
+      }
+    },
+    "triparty_faces": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["face_id", "parties", "lambda_evid", "lambda_admit", "lambda_release", "residual", "state"],
+        "properties": {
+          "face_id": {"type": "string"},
+          "parties": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "string"}},
+          "lambda_evid": {"type": "number"},
+          "lambda_admit": {"type": "number"},
+          "lambda_release": {"type": "number"},
+          "residual": {"type": "number"},
+          "state": {"type": "string"},
+          "visibility_state": {"type": "string"},
+          "proof_artifact_id": {"type": "string"}
+        }
+      }
+    },
+    "heller_supply": {
+      "type": "object",
+      "required": ["micro", "credit", "reserve"],
+      "properties": {
+        "micro": {"type": "number"},
+        "credit": {"type": "number"},
+        "reserve": {"type": "number"}
+      }
+    },
+    "reserve_adequacy": {"type": "number"},
+    "credit_utilization": {"type": "number"},
+    "gross_to_net_compression": {"type": "number"},
+    "release_correctness": {"type": "number"},
+    "refund_safety": {"type": "number"},
+    "contradiction_containment": {"type": "number"},
+    "export_discipline": {"type": "number"},
+    "replay_completeness": {"type": "number"}
+  }
+}
