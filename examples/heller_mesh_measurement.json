@@ -1,0 +1,121 @@
+{
+  "run_id": "heller-mesh-synthetic-001",
+  "scenario": "packaging-education-release",
+  "as_of": "2026-05-05T00:00:00Z",
+  "framework_version": "0.1.0",
+  "sphere_states": [
+    {
+      "sphere_id": "security",
+      "economic_profit": 12.0,
+      "momentum": 0.62,
+      "knowledge_quality": 0.74,
+      "micro_supply": 300.0,
+      "credit_supply": 4.0,
+      "reserve_supply": 2.0,
+      "risk_charge": 1.8,
+      "capital_charge": 0.7
+    },
+    {
+      "sphere_id": "packaging",
+      "economic_profit": 18.0,
+      "momentum": 0.71,
+      "knowledge_quality": 0.82,
+      "micro_supply": 420.0,
+      "credit_supply": 5.0,
+      "reserve_supply": 2.4,
+      "risk_charge": 1.2,
+      "capital_charge": 0.6
+    },
+    {
+      "sphere_id": "attestation",
+      "economic_profit": 10.0,
+      "momentum": 0.67,
+      "knowledge_quality": 0.88,
+      "micro_supply": 260.0,
+      "credit_supply": 3.0,
+      "reserve_supply": 1.8,
+      "risk_charge": 0.8,
+      "capital_charge": 0.5
+    },
+    {
+      "sphere_id": "education",
+      "economic_profit": 25.0,
+      "momentum": 0.77,
+      "knowledge_quality": 0.91,
+      "micro_supply": 520.0,
+      "credit_supply": 2.0,
+      "reserve_supply": 1.2,
+      "risk_charge": 0.5,
+      "capital_charge": 0.2
+    },
+    {
+      "sphere_id": "governance",
+      "economic_profit": 7.0,
+      "momentum": 0.55,
+      "knowledge_quality": 0.79,
+      "micro_supply": 180.0,
+      "credit_supply": 2.0,
+      "reserve_supply": 5.0,
+      "risk_charge": 0.4,
+      "capital_charge": 0.3
+    }
+  ],
+  "edge_measurements": [
+    {
+      "source_sphere_id": "packaging",
+      "target_sphere_id": "education",
+      "delta_ep": 10.0,
+      "knowledge_quality": 0.4032,
+      "transfer_price": 6.532,
+      "credit_exposure": 1.0,
+      "required_collateral": 0.2,
+      "pending_settlement_risk": 0.0,
+      "dispute_reserve": 0.0,
+      "chargeback_reserve": 0.0,
+      "rights_warranty_reserve": 0.0,
+      "operational_risk_charge": 0.0,
+      "concentration_charge": 0.0
+    },
+    {
+      "source_sphere_id": "attestation",
+      "target_sphere_id": "packaging",
+      "delta_ep": 4.0,
+      "knowledge_quality": 0.88,
+      "transfer_price": 2.95,
+      "credit_exposure": 0.5,
+      "required_collateral": 0.12,
+      "pending_settlement_risk": 0.02,
+      "dispute_reserve": 0.0,
+      "chargeback_reserve": 0.0,
+      "rights_warranty_reserve": 0.0,
+      "operational_risk_charge": 0.03,
+      "concentration_charge": 0.0
+    }
+  ],
+  "triparty_faces": [
+    {
+      "face_id": "face-packaging-attestation-education-001",
+      "parties": ["packaging", "attestation", "education"],
+      "lambda_evid": 1.0,
+      "lambda_admit": 1.0,
+      "lambda_release": 0.8,
+      "residual": 0.2,
+      "state": "Released",
+      "visibility_state": "RestrictedProof",
+      "proof_artifact_id": "proof-heller-mesh-synthetic-001"
+    }
+  ],
+  "heller_supply": {
+    "micro": 1680.0,
+    "credit": 16.0,
+    "reserve": 12.4
+  },
+  "reserve_adequacy": 38.75,
+  "credit_utilization": 0.0968,
+  "gross_to_net_compression": 0.8,
+  "release_correctness": 1.0,
+  "refund_safety": 1.0,
+  "contradiction_containment": 1.0,
+  "export_discipline": 1.0,
+  "replay_completeness": 1.0
+}
