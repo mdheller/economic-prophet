@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://economic-prophet.dev/schemas/uvmc_dimension.schema.json",
+  "title": "UVMC Enterprise Dimension",
+  "description": "Governed enterprise dimension with hierarchy levels, rollups, reference records, status, effective dating, and business-facing views.",
+  "type": "object",
+  "required": ["dimension_id", "name", "levels", "reference_records", "status"],
+  "properties": {
+    "dimension_id": {"type": "string", "minLength": 1},
+    "name": {"type": "string", "minLength": 1},
+    "description": {"type": "string"},
+    "levels": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["level_id", "level_name", "grain", "code_field", "description_field"],
+        "properties": {
+          "level_id": {"type": "string", "minLength": 1},
+          "level_name": {"type": "string", "minLength": 1},
+          "grain": {"type": "string", "minLength": 1},
+          "parent_level_id": {"type": "string"},
+          "rollup_field": {"type": "string"},
+          "code_field": {"type": "string", "minLength": 1},
+          "description_field": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    },
+    "reference_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["record_id", "level_id", "code", "status"],
+        "properties": {
+          "record_id": {"type": "string", "minLength": 1},
+          "level_id": {"type": "string", "minLength": 1},
+          "code": {"type": "string", "minLength": 1},
+          "description": {"type": "string"},
+          "parent_record_id": {"type": "string"},
+          "status": {"type": "string", "enum": ["active", "inactive", "pending", "deprecated"]},
+          "active_date": {"type": "string"},
+          "inactive_date": {"type": "string"},
+          "source_system": {"type": "string"},
+          "source_record_id": {"type": "string"},
+          "metadata": {"type": "object", "additionalProperties": true}
+        },
+        "additionalProperties": false
+      }
+    },
+    "view_wide": {"type": "string"},
+    "view_normalized": {"type": "string"},
+    "owner": {"type": "string"},
+    "status": {"type": "string", "enum": ["draft", "active", "inactive", "pending", "deprecated"]}
+  },
+  "additionalProperties": false
+}
