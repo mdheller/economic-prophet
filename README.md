@@ -37,6 +37,13 @@ This repository layers the work from the economic-profit white paper into:
 - Heller mesh measurement runtime
 - audit pack generation
 
+### Phase 3 — ValueFlows / MPCC / energy alignment
+- `docs/valueflows_mpcc_energy_alignment.md`
+- ValueFlows-compatible economic graph objects
+- MPCC-compatible event envelopes
+- energy stock/flow/conversion semantics
+- Heller mesh crosswalk as an internal measurement projection
+
 ## Quick start
 
 ```bash
@@ -79,6 +86,12 @@ The object-graph CLI emits lineage-aware EP output for a selected object and wri
 The object-context CLI emits a joined runtime context for a selected instrument, including object lineage, account, instrument, transaction event, collateral set, funding source, and hedge set.
 
 The Heller mesh CLI emits a validated internal measurement run for the Heller flywheel mechanics: sphere states, transfer-pricing edges, triparty faces, Micro/Credit/Reserve supply, reserve adequacy, credit utilization, gross-to-net compression, and auditable run hashes.
+
+## ValueFlows / MPCC / energy alignment
+
+Economic Prophet now treats ValueFlows as the economic graph grammar, energy semantics as the stock/flow/conversion/capacity grammar, MPCC as the provenance/authority/causality grammar, Economic Prophet as the profitability measurement runtime, and Heller mesh as a specialized internal economic-mechanics projection.
+
+See `docs/valueflows_mpcc_energy_alignment.md`.
 
 ## Context output schemas
 
@@ -139,6 +152,9 @@ This reference implementation is designed to integrate with:
 - **Gaia** for macro regime state and scenario conditioning
 - **Ontogenesis** for canonical ontology, lineage, and semantic constraints
 - **TritFabric** for typed event transport and simulation orchestration
+- **ValueFlows** for economic graph semantics
+- **MPCC** for event provenance, causality, authority, policy, and effect control
+- **energy-system modeling** for stock/flow/conversion/capacity/cost constraints
 
 ## First artifacts to land
 
