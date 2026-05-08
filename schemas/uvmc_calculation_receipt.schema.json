@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://economic-prophet.dev/schemas/uvmc_calculation_receipt.schema.json",
+  "title": "UVMC Calculation Receipt",
+  "description": "Deterministic evidence receipt for UVMC calculations and measurement runs.",
+  "type": "object",
+  "required": [
+    "run_id",
+    "measurement_context_id",
+    "timestamp",
+    "model_version",
+    "parameter_set",
+    "formula_version",
+    "input_hash",
+    "output_hash",
+    "reconciliation_status",
+    "outputs"
+  ],
+  "properties": {
+    "run_id": {"type": "string", "minLength": 1},
+    "measurement_context_id": {"type": "string", "minLength": 1},
+    "timestamp": {"type": "string"},
+    "model_version": {"type": "string", "minLength": 1},
+    "parameter_set": {"type": "string", "minLength": 1},
+    "formula_version": {"type": "string", "minLength": 1},
+    "scenario_id": {"type": "string"},
+    "input_hash": {"type": "string", "minLength": 1},
+    "output_hash": {"type": "string", "minLength": 1},
+    "override_log": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["field", "reason", "approver"],
+        "properties": {
+          "field": {"type": "string", "minLength": 1},
+          "old_value": {},
+          "new_value": {},
+          "reason": {"type": "string", "minLength": 1},
+          "approver": {"type": "string", "minLength": 1},
+          "timestamp": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "reconciliation_status": {"type": "string", "enum": ["not_required", "passed", "failed", "warning", "pending"]},
+    "reconciliation_summary": {"type": "string"},
+    "outputs": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "standards_refs": {"type": "array", "items": {"type": "string"}},
+    "evidence_refs": {"type": "array", "items": {"type": "string"}},
+    "status": {"type": "string", "enum": ["draft", "active", "invalidated", "superseded"]}
+  },
+  "additionalProperties": false
+}
