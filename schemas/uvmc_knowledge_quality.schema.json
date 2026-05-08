@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://economic-prophet.dev/schemas/uvmc_knowledge_quality.schema.json",
+  "title": "UVMC Knowledge Quality",
+  "description": "Knowledge quality score and components for Unified Value Measurement Calculus outputs.",
+  "type": "object",
+  "required": [
+    "knowledge_quality_id",
+    "scoring_mode",
+    "components",
+    "score",
+    "evidence_refs"
+  ],
+  "properties": {
+    "knowledge_quality_id": {"type": "string", "minLength": 1},
+    "scoring_mode": {"type": "string", "enum": ["strict_product", "weighted_geometric"]},
+    "components": {
+      "type": "object",
+      "required": ["coverage", "quality", "stability", "provenance"],
+      "properties": {
+        "coverage": {"type": "number", "minimum": 0, "maximum": 1},
+        "quality": {"type": "number", "minimum": 0, "maximum": 1},
+        "stability": {"type": "number", "minimum": 0, "maximum": 1},
+        "provenance": {"type": "number", "minimum": 0, "maximum": 1}
+      },
+      "additionalProperties": false
+    },
+    "weights": {
+      "type": "object",
+      "properties": {
+        "coverage": {"type": "number", "minimum": 0},
+        "quality": {"type": "number", "minimum": 0},
+        "stability": {"type": "number", "minimum": 0},
+        "provenance": {"type": "number", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "score": {"type": "number", "minimum": 0, "maximum": 1},
+    "knowledge_credit": {"type": "number", "minimum": 0},
+    "knowledge_credit_cap": {"type": "number", "minimum": 0},
+    "evidence_refs": {"type": "array", "items": {"type": "string"}},
+    "freshness_as_of": {"type": "string"},
+    "owner": {"type": "string"},
+    "status": {"type": "string", "enum": ["draft", "active", "inactive", "pending", "deprecated"]}
+  },
+  "additionalProperties": false
+}
