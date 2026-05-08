@@ -36,6 +36,12 @@ This repository layers the work from the economic-profit white paper into:
 - context output schemas
 - audit pack generation
 
+### Phase 3 — ValueFlows / MPCC alignment
+- `docs/valueflows_mpcc_alignment.md`
+- ValueFlows-compatible economic graph objects
+- MPCC-compatible event envelopes
+- Heller mesh crosswalk as an internal measurement projection
+
 ## Quick start
 
 ```bash
@@ -75,6 +81,12 @@ The relationship-context CLI emits the same relationship calculation with relati
 The object-graph CLI emits lineage-aware EP output for a selected object and writes the same auditable run record format. Object graph files are validated against `schemas/canonical_object.schema.json` during load.
 
 The object-context CLI emits a joined runtime context for a selected instrument, including object lineage, account, instrument, transaction event, collateral set, funding source, and hedge set.
+
+## ValueFlows / MPCC alignment
+
+Economic Prophet now treats ValueFlows as the economic grammar, MPCC as the provenance/authority/causality grammar, Economic Prophet as the profitability measurement runtime, and Heller mesh as a specialized internal economic-mechanics projection.
+
+See `docs/valueflows_mpcc_alignment.md`.
 
 ## Context output schemas
 
@@ -124,6 +136,8 @@ This reference implementation is designed to integrate with:
 - **Gaia** for macro regime state and scenario conditioning
 - **Ontogenesis** for canonical ontology, lineage, and semantic constraints
 - **TritFabric** for typed event transport and simulation orchestration
+- **ValueFlows** for economic graph semantics
+- **MPCC** for event provenance, causality, authority, policy, and effect control
 
 ## First artifacts to land
 
